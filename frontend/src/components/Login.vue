@@ -47,7 +47,6 @@ export default {
       let redirect = decodeURIComponent(this.$route.query.redirect || '/')
       this.$store.dispatch(types.LOGIN, {
         credential: credential,
-        router: this.$router,
         redirect: redirect
       })
     }

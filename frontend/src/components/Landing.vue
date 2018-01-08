@@ -16,9 +16,6 @@ export default {
     }
   },
   methods: {
-    openCrisp: function () {
-      // $crisp.push(['do', 'chat:open'])
-    }
   }
 }
 </script>

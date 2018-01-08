@@ -9,7 +9,6 @@ export default {
     let redirect = decodeURIComponent(this.$route.query.redirect || '/')
 
     this.$store.commit(types.LOGOUT, {
-      router: this.$router,
       redirect: redirect
     })
     // Might be putting redirect into block of methods.

@@ -3,6 +3,7 @@ import Vue from 'vue'
 import * as types from './mutation-types'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
+import router from '../router'
 
 const API_URL = 'http://localhost:8000/'
 const LOGIN_URL = API_URL + 'api-token-auth/'
@@ -18,18 +19,14 @@ const mutations = {
   [types.LOGIN]: (state, payload) => {
     state.token = payload.token
     state.user = payload.user
-
-    if (payload.redirect) {
-      payload.router.push(payload.redirect)
-    }
+    // vuex store this.$router.push not defined
+    // https://github.com/vuejs/vuex-router-sync/issues/21
+    router.push(payload.redirect)
   },
   [types.LOGOUT]: (state, payload) => {
     state.token = null
     state.user = {}
-
-    if (payload.redirect) {
-      payload.router.push(payload.redirect)
-    }
+    router.push(payload.redirect)
   },
   [types.TITLE]: (state, data) => {
     state.title = data
@@ -37,7 +34,7 @@ const mutations = {
 }
 
 const actions = {
-  [types.LOGIN]: ({ commit }, payload) => {
+  [types.LOGIN] ({ commit }, payload) {
     axios.post(LOGIN_URL, payload.credential)
     .then(response => {
       if (response.data.token) {
@@ -45,12 +42,8 @@ const actions = {
         mutationPayload.token = response.data.token
         mutationPayload.user = JSON.parse(atob(response.data.token.split('.')[1]))
         mutationPayload.user.authenticated = true
-
         console.log('mutationPayload', mutationPayload)
-        console.log('exp: ', new Date(mutationPayload.user.exp * 1000))
-        console.log('exp: ', new Date(mutationPayload.user.orig_iat * 1000))
         mutationPayload.redirect = payload.redirect
-        mutationPayload.router = payload.router
         commit(types.LOGIN, mutationPayload)
       }
     })
