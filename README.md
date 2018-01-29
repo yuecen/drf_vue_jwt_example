@@ -1,8 +1,8 @@
 ## drf-vue-jwt-example
 
-This is an example for starting a single page application separating frontend and backend. Backend is built by Django REST framework (DRF), frontend is built by Vue.  The JSON Web Token (JWT) is for auth.
+This is an example for starting a single page application separating frontend and backend. Backend is built by Django REST framework (DRF), frontend is built by Vue. The JSON Web Token (JWT) is for auth.
 
-### Some Notes
+### Recap
 
 #### Backend
 
@@ -17,9 +17,10 @@ This is an example for starting a single page application separating frontend an
 #### Frontend
 
 * Handle all requests by axios interceptors
-  * Redirect when token expired or no login 
+* Redirect when token expired or no login
 * Handle JWT with Vuex to store states
 * Save states into local storage
+* Integrate backend API
 
 ### Screenshot
 

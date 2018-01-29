@@ -2,6 +2,7 @@
   <div class="profile">
     <div class="container">
       <h1>Your Profile</h1>
+      <p>{{ this.usersdata }}</p>
     </div>
   </div>
 
@@ -21,7 +22,7 @@ export default {
   },
   methods: {
     getUsers () {
-      this.$http.get('http://127.0.0.1:8000/users/' + this.$store.state.user.user_id + '/')
+      this.$api.UserProfile(this.$store.state.user.user_id)
       .then(response => {
         console.log('response => ', response)
         if (response.data) {
